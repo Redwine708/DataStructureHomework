@@ -5,7 +5,7 @@ template<typename E>
 class Link
 {
     public:
-        E element;
+        E element;    //存放数据
         Link<E>* next;
         Link(const E& elemval , Link* nextval = NULL)
         {
@@ -14,10 +14,11 @@ class Link
         }
         Link(Link* nextval = NULL)
         {
-            next = nextval;
+          next = nextval;
         }
 
 };
+
 
 
 

@@ -1,109 +1,120 @@
+/*
+ *We use three pointers to control the list and the curr pointer points the former
+ *element than the curr position
+ */ 
 #ifndef _LLIST_
 #define _LLIST_
-#include "Link.h"
-#include "List.h"
 #include<iostream>
-#include<string>
-#include<cctype>
+#include "Link.h"
+#include"assert.h"
+#include "List.h"
 using namespace std;
-template<typename E>class LList: public Link<E>,public List<E>
+template<typename E>class LList : public List<E> 
 {
     private:
-        static Link<E>* head;
-        static Link<E>* curr;
-        static Link<E>* tail;
+        Link<E>* head;
+        Link<E>* tail;
+        Link<E>* curr;
         int cnt;
 
         void init()
         {
-            head = curr = tail = NULL;
+            curr = tail = head = new Link<E>;
             cnt = 0;
         }
 
         void removeall()
         {
-            while(head!=NULL)
+            while(head != NULL)
             {
                 curr = head;
-                head = head ->next;
+                head = head -> next;
                 delete curr;
             }
         }
     
     public:
-        LList(){init();}
-        LList(string s)
+        LList(int size = 100)
         {
             init();
-            Link<E>* tmp = head ;
-            for(int i = 0 ; i < s.size() ; i++)
-            {
-                insert(s[i]);  //insert
-            }
-        }
-        friend ostream& operator << (ostream &output , LList const& t)
-        {
-            Link<E>* tmp = head;
-            while(tmp ->next != NULL)
-            {
-                output<<tmp->next->element;
-            }
-            return output;
-
         }
         ~LList(){removeall();}
         void clear(){removeall();init();}
-        void removeDigit()
+
+        void insert(const E& it)
         {
-            moveToStart();
-            if(isdigit(curr->element))remove();
+            curr -> next = new Link<E>(it ,curr->next);
+            if(tail == curr)tail = curr->next;
+            cnt++;
         }
+
+        void append(const E& it)
+        {
+            tail = tail -> next = new Link<E>(it , NULL);
+            cnt++;
+        }
+
         E remove()
         {
-            E it = curr -> next ->element;
-            Link<E>* tmp = curr ->next;
-            curr->next = tmp -> next;
-            if(curr->next == tail) tail = curr;
+            Assert(curr->next != NULL , "No element");
+            E it= curr -> next ->element;
+            Link<E>* tmp = curr -> next;
+            curr -> next = tmp -> next;
+            if(tail == curr -> next) tail = curr;
             cnt --;
             delete tmp;
             return it;
         }
-        int calAlpha()
-        {
-            int count = 0;
-            Link<E>* tmp = head;
-            for(;tmp!=tail; tmp = tmp-> next)
-            {
-                if(isalpha(tmp->element))count++;
-            }
-            return count;
-        }
-        int calDigit()
-        {
-            int count = 0;
-            Link<E>* tmp = head;
-            for(;tmp!=tail; tmp = tmp-> next)
-            {
-                if(isdigit(tmp->element))count++;
-            }
-            return count;
-        }
+
         void moveToStart()
         {
             curr = head;
         }
-        void insert(const E& it)
+
+        void moveToEnd()
         {
-            curr->next = new Link<E>(it , curr -> next);
-            if(tail == curr) tail = curr->next;
-            cnt++;
+            curr = tail;
         }
 
-        int getCnt()const{
+        void prev()
+        {
+            if( curr == head ) return ;
+            Link<E>* tmp = head;
+            while(tmp->next != curr)tmp = tmp -> next;
+            curr = tmp;
+        }
+
+        void next()
+        {
+            Assert(curr != tail,"No next element");
+            curr = curr -> next;
+        }
+
+        int length() const{
             return cnt;
         }
 
-
+        int currPos()const{
+            Link<E>* tmp = head;
+            int i;
+            for(i =  0; curr != tmp ; i++)
+            {
+                tmp = tmp -> next;
+            }
+            return i;
+        }
+        void moveToPos(int Pos)
+        {
+            Assert(Pos>=0 && Pos <=cnt , "Position out of range");
+            curr = head;
+            for(int i = 0; i < Pos ; i++)
+            curr = curr -> next;
+        }
+        const E & getValue()const{
+            Assert(curr->next != NULL,"No value");
+            return curr->next->element;
+        }
 };
+
 
 #endif
