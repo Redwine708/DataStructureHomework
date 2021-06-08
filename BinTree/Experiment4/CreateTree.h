@@ -28,7 +28,7 @@ void  creatBinaryTree(BinTree<string>*BT)//构建二叉树的函数，包含了�
         //cout  <<  "请输入二叉树有多少个结点(空结点也计算其中)"  <<  endl;
        string tree;
        cin>>tree;
-       int n = tree.length();
+        int n = tree.length();
         //cout  <<  "请按preorder顺序输入，遇到NULL请输入'/',用空格隔开或者回车隔开均可以"  <<  endl;
         string*s  =  new  string[n];
         for  (int  i  =  0;  i  <  n;  i++)
