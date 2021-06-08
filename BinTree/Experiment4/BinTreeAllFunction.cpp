@@ -251,8 +251,7 @@ void  printNode(BinNode<E>*tmp)//打印结点的值的函数
 {
         cout  <<  tmp->getValue()  <<  "  ";
 }
-
-template<typename  E>
+template<typename E>
 BinNode<E>*  creatBinaryTree(string  s[],  int  &x,int  n)//构建二叉树的主函数，根据先序遍历，采用递归思想构建
 {
         if  (s[x]  =="/")
@@ -290,51 +289,4 @@ int  main()
         //本程序的二叉树是一个模板类，若想改变为别的类型，可以在相关的地方在“<>”中修改相关参数,本程序默认为最具有普遍性的string
         BinTree<string>*BT  =  new  BinTree<string>;
         creatBinaryTree(BT);
-        string  strfind;
-        cin>>strfind;
-        //在这里，已经构建好了一棵二叉树
-        //下面是二叉树的基本函数操作的展示
-
-        cout  <<  "0:判断是否为空树：";
-        if  (BT->BinTreeEmpty()  ==  true)
-                cout  <<  "是"  <<  endl;
-        else
-                cout  <<  "否"  <<  endl;
-        cout  <<  "1:前序遍历:";
-        BT->preOrder(printNode);
-        cout  <<  endl;
-        cout  <<  "2:中序遍历:";
-        BT->inOrder(printNode);
-        cout  <<  endl;
-        cout  <<  "3:后序遍历:";
-        BT->postOrder(printNode);
-        cout  <<  endl;
-        cout  <<  "4:层次遍历:";
-        BT->LevelOrderTranverse(printNode);
-        cout  <<  endl;
-        cout  <<  "5:记录树的深度:";
-        cout  <<  BT->BinTreeDepth()  <<  endl;
-        cout  <<  "6:记录树的高度:";
-        cout  <<  BT->BinTreeHeight()  <<  endl;
-        cout  <<  "7:统计结点:";
-        cout  <<  BT->BinTreeNodes()  <<  endl;
-        cout  <<  "8:统计叶子结点:";
-        cout  <<  BT->BinTreeLeafs()  <<  endl;
-        cout  <<  "9:查找"<<strfind<<":";
-        if  (BT->find(strfind)  ==  true)
-                cout  <<  "存在"  <<  endl;
-        else
-                cout  <<  "不存在"  <<  endl;
-        cout  <<  "10:是否清空:";
-        BT->clear();
-        cout  <<  "已清空"  <<  endl;
-        cout  <<  "5:记录树的深度:";
-        cout  <<  BT->BinTreeDepth()  <<  endl;
-        cout  <<  "6:记录树的高度:";
-        cout  <<  BT->BinTreeHeight()  <<  endl;
-        cout  <<  "7:统计结点:";
-        cout  <<  BT->BinTreeNodes()  <<  endl;
-        cout  <<  "8:统计叶子结点:";
-        cout  <<  BT->BinTreeLeafs()  <<  endl;
-        return  0;
 }
